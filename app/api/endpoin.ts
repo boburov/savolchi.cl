@@ -1,7 +1,7 @@
 export const API_ENDPOINT = {
   BASE_URL: "http://localhost:5000",
-  REGISTER: "/auth/user/register",
-  LOGIN: "/auth/user/login",
+  REGISTER: "/auth/register/user/",
+  LOGIN: "/auth/login/user",
   ALL: "/channel/all",
   VERIFY: "/auth/verify-email",
   VERIFY_TOKEN: "/auth/verify_token",

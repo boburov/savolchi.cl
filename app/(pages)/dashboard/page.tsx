@@ -1,6 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
-import { LogIn, Moon, MoonStar, School, Search, Unlock } from "lucide-react";
+import {
+  Brain,
+  LogIn,
+  Moon,
+  MoonStar,
+  School,
+  Search,
+  Unlock,
+} from "lucide-react";
 import Link from "next/link";
 import useAuth from "@/hooks/useAuth";
 import channel from "@/app/api/service/channel.service";
@@ -107,7 +115,7 @@ const DashboardPage = () => {
                             {ch.name}
                           </h2>
                         </div>
-                        <Unlock className="text-green-500" size={18} />
+                        <Brain className="text-green-500" size={18} />
                       </div>
 
                       {hasBanner ? (
@@ -142,8 +150,14 @@ const DashboardPage = () => {
                             <p className="font-medium text-gray-800">
                               {ch.name}
                             </p>
-                            <p className="text-xs text-gray-500">
-                              ID: {ch.id} | Admin: {ch.adminId}
+                            <p className="text-xs text-gray-500 flex flex-col">
+                              <span className="truncate w-48">
+                                ID: {ch.id}{" "}
+                              </span>
+
+                              <span className="truncate w-48">
+                                Admin: {ch.adminId}
+                              </span>
                             </p>
                           </div>
                         </div>

@@ -30,7 +30,7 @@ const AuthPage = () => {
       if (isLogin) {
         await authService.login(formData.email, formData.password);
         toast.success("Kirish muvaffaqiyatli ✅");
-        router.push("/dashboard");
+        // router.push("/dashboard");
       } else {
         await authService.register(formData);
         toast.success("Ro'yxatdan o'tish muvaffaqiyatli 🎉");
