@@ -1,10 +1,11 @@
 export const API_ENDPOINT = {
-  BASE_URL: "http://localhost:5000",
+  BASE_URL: "https://api.savolchi.uz/",
   REGISTER: "/auth/register/user/",
   LOGIN: "/auth/login/user",
-  ALL: "/channel/all",
-  VERIFY: "/auth/verify-email",
-  VERIFY_TOKEN: "/auth/verify_token",
+  VERIFY: "/auth/validate/code",
+  VERIFY_TOKEN: "/auth/verify/admin/token",
+  
+  ALL: "/chanel",
   QUESTIONS: "/questions",
   ASK_QUESTION: "/questions/ask",
   ANSWER_QUESTION: (questionId: string) => `/questions/${questionId}/answer`,

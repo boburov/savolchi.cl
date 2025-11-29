@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Eye, EyeOff, Mail, Lock } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, BookOpen } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -9,10 +9,11 @@ import "react-toastify/dist/ReactToastify.css";
 import logo from "@/public/savolchi.svg";
 import authService from "@/app/api/service/auth.service";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
+    username: "",
     email: "",
     password: "",
   });
@@ -25,11 +26,15 @@ const LoginPage = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await authService.login(formData.email, formData.password);
-      toast.success("Kirish muvaffaqiyatli ✅");
-      router.push("/dashboard");
+      await authService.register(formData);
+      toast.success("Ro'yxatdan o'tish muvaffaqiyatli 🎉");
+      router.push(`/auth/verify-email?email=${formData.email}`);
     } catch (err: any) {
-      toast.error("Email yoki parol noto'g'ri ❌");
+      if (err.response?.status === 400) {
+        toast.error("Bu email allaqachon band ❌");
+      } else {
+        toast.error("Ro'yxatdan o'tishda xatolik yuz berdi ⚠️");
+      }
     } finally {
       setLoading(false);
     }
@@ -53,10 +58,33 @@ const LoginPage = () => {
 
         <div className="bg-white rounded-xl shadow-lg p-6">
           <div className="text-center mb-4">
-            <h1 className="text-2xl font-bold text-purple-800">Kirish</h1>
+            <h1 className="text-2xl font-bold text-purple-800">
+              Ro'yxatdan o'tish
+            </h1>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-3">
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-gray-700 flex items-center gap-1">
+                <BookOpen size={14} /> Foydalanuvchi nomi
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                  placeholder="Username"
+                  required
+                />
+                <BookOpen
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                  size={16}
+                />
+              </div>
+            </div>
+
             <div className="space-y-1">
               <label className="text-xs font-medium text-gray-700 flex items-center gap-1">
                 <Mail size={14} /> Email
@@ -106,31 +134,22 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <div className="text-right">
-              <Link
-                href="/forgot-password"
-                className="text-xs text-purple-800 hover:text-purple-700"
-              >
-                Parolni unutdingizmi?
-              </Link>
-            </div>
-
             <button
               type="submit"
               disabled={loading}
               className="w-full bg-purple-800 hover:bg-purple-900 text-white py-2.5 px-4 rounded-lg text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Kirish
+              Ro'yxatdan o'tish
             </button>
           </form>
 
           <div className="mt-4 text-center text-xs text-gray-600">
-            Hisobingiz yo'qmi?{" "}
+            Allaqachon hisobingiz bormi?{" "}
             <Link
-              href="/auth/register"
+              href="/auth/login"
               className="text-purple-800 hover:text-purple-700 font-medium ml-1"
             >
-              Ro'yxatdan o'tish
+              Kirish
             </Link>
           </div>
         </div>
@@ -139,4 +158,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

@@ -15,20 +15,18 @@ const useAuth = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const token =
-        localStorage.getItem("token") || localStorage.getItem("refreshToken");
+      const token = localStorage.getItem("token");
       if (!token) {
         router.push("/auth/login");
         return;
       }
 
       try {
-        const fullUser = await authService.verify_token(token);
-        setUser(fullUser);
+        const response = await authService.verifyToken(token);
+        setUser(response.data);
       } catch (err) {
         console.error("Token verify error:", err);
-        localStorage.removeItem("token");
-        localStorage.removeItem("refreshToken");
+        authService.logout();
         router.push("/auth/login");
       } finally {
         setLoading(false);

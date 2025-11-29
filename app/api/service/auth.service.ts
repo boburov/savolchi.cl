@@ -1,67 +1,47 @@
-import api from "../axios";
-import { API_ENDPOINT } from "../endpoin";
+import axios from "axios";
+
+const API_URL = "http://localhost:5000/auth";
+
+const register = (data: any) => {
+  return axios.post(`${API_URL}/register/user`, data);
+};
+
+const login = (email: string, password: string) => {
+  return axios
+    .post(`${API_URL}/login/user`, { email, password })
+    .then((response) => {
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+      }
+      return response.data;
+    });
+};
+
+const verifyEmail = (email: string, code: string) => {
+  return axios
+    .post(`${API_URL}/validate/code`, { email, code })
+    .then((response) => {
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+      }
+      return response.data;
+    });
+};
+
+const verifyToken = (token: string) => {
+  return axios.post(`${API_URL}/verify/user/token`, { token });
+};
+
+const logout = () => {
+  localStorage.removeItem("token");
+};
 
 const authService = {
-  login: async (email: string, password: string) => {
-    const res = await api.post(API_ENDPOINT.LOGIN, { email, password });
-    const { token, refreshToken } = res.data;
-    if (token && refreshToken) {
-      localStorage.setItem("token", token);
-      localStorage.setItem("refreshToken", refreshToken);
-    }
-    return res.data;
-  },
-
-  register: async (userData: any) => {
-    try {
-      const res = await api.post(API_ENDPOINT.REGISTER, userData);
-      const { token, refreshToken, email } = res.data;
-
-      if (token && refreshToken) {
-        localStorage.setItem("token", token);
-        localStorage.setItem("refreshToken", refreshToken);
-      }
-
-      if (email) localStorage.setItem("onboardEmail", email);
-
-      return res.data;
-    } catch (error: any) {
-      if (error.response && error.response.data) {
-        throw new Error(
-          error.response.data.error || "Ro'yxatdan o'tishda xato"
-        );
-      }
-      throw new Error("Tarmoqqa ulanishda xato");
-    }
-  },
-
-  verify: async (code: string) => {
-    try {
-      const email = localStorage.getItem("onboardEmail");
-      if (!email) throw new Error("Email topilmadi");
-      const res = await api.post(API_ENDPOINT.VERIFY, { email, code });
-      return res.data;
-    } catch (error: any) {
-      if (error.response && error.response.data) {
-        throw new Error(error.response.data.error || "Kod noto‘g‘ri");
-      }
-      console.log("Kod To'gri");
-    }
-  },
-
-  verify_token: async (token: string) => {
-    try {
-      const res = await api.post(API_ENDPOINT.VERIFY_TOKEN, { token });
-      return res.data;
-    } catch (error) {
-      console.log(error);
-    }
-  },
-
-  getCurrentUser: async () => {
-    const res = await api.get("/auth/me");
-    return res.data;
-  },
+  register,
+  login,
+  verifyEmail,
+  verifyToken,
+  logout,
 };
 
 export default authService;
