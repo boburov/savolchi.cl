@@ -19,7 +19,6 @@ interface ChannelType {
 
 const DashboardPage = () => {
   const { user } = useAuth();
-  console.log(user);
 
   const [channels, setChannels] = useState<ChannelType[]>([]);
   const [loading, setLoading] = useState(true);
@@ -29,7 +28,9 @@ const DashboardPage = () => {
     const fetchChannels = async () => {
       try {
         const res = await channel.getAll();
-        setChannels(res || []);
+        setChannels(res);
+        console.log(res);
+        
       } catch (error) {
         console.error("Channel olishda xatolik:", error);
       } finally {

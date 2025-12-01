@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     title: "Savolchi | Boburov’s Project | Best Test Platform",
     description:
       "Savolchi — Boburov tomonidan ishlab chiqilgan eng yaxshi test platforma. Sinovlar, testlar va bilim tahlili bir joyda.",
-    url: "https://savolchi.vercel.app",
+    url: "https://savolchi.uz",
     siteName: "Savolchi",
     images: [
       {
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     creator: "@boburov",
   },
   alternates: {
-    canonical: "https://savolchi.vercel.app",
+    canonical: "https://savolchi.uz",
   },
 };
 
