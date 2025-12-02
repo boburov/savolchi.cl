@@ -1,6 +1,6 @@
 export const API_ENDPOINT = {
   BASE_URL: "http://localhost:5000/auth",
-  
+
   // auth endpoint
   REGISTER: "/auth/register/user/",
   LOGIN: "/auth/login/user",
@@ -9,6 +9,7 @@ export const API_ENDPOINT = {
 
   // channel endpoints
   ALL: "/chanel",
+  GET_CHANEL_BY_ID: (id: string) => `chanel/${id}`,
 
   // tests endpoint
   QUESTIONS: "/questions",

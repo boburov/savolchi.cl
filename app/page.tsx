@@ -13,6 +13,7 @@ const HomePage = () => {
           <h1 className="text-purple-700 text-4xl sm:text-5xl font-bold mb-2 leading-tight">
             Savolchi
           </h1>
+
           <p className="text-gray-700 text-base sm:text-lg md:text-xl mb-4">
             Biz bilan testga emas, ishga tayyorlaning <br />
             O‘zingizni sinab ko‘ring, bilimlaringizni oshiring

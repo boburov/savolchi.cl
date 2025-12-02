@@ -25,6 +25,7 @@ const Header = () => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
 
+
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (
