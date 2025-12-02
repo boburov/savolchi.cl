@@ -3,11 +3,16 @@
 import { CheckCircle, Book, UserCheck, Star } from "lucide-react";
 import Link from "next/link";
 import UnAuthHeader from "./components/UnAuthHeader";
+import useAuth from "@/hooks/useAuth";
+import Header from "./components/Header";
 
 const HomePage = () => {
+  const { user } = useAuth();
+  console.log();
+
   return (
     <>
-    <UnAuthHeader/>
+      {user ? <Header /> : <UnAuthHeader />}
       <div className="min-h-screen flex flex-col items-center justify-start px-4 py-12 container border-x border-gray-300 mx-auto">
         <section className="text-center mb-12">
           <h1 className="text-purple-700 text-4xl sm:text-5xl font-bold mb-2 leading-tight">

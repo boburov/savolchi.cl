@@ -85,7 +85,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} montserrat-500`}
       >
         <TanStackProvider>{children}</TanStackProvider>
       </body>
