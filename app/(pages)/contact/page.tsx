@@ -24,7 +24,7 @@ type Profile = {
 
 const profiles: Profile[] = [
   {
-    role: "Creator",
+    role: "Developer",
     fullName: "Boburov Shukurullo",
     username: "rovixwb",
     email: "boburovshukurullo@gmail.com",

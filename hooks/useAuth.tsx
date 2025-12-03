@@ -6,6 +6,12 @@ interface User {
   id: string;
   username: string;
   email: string;
+  rank: string;
+  isPremium: boolean;
+  usingTime: number;
+  xp: number;
+  isVerified: boolean;
+  createdAt: string;
 }
 
 const useAuth = () => {
