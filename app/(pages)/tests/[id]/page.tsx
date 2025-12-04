@@ -38,8 +38,8 @@ const Page = () => {
   // FETCH DATA
   useEffect(() => {
     async function fetchData() {
-      const res: Test[] = await tests.filter("salom");
-      const filtered = res.filter((t) => t.subjectId === id);
+      const res: Test[] = await tests.filter(String(id));
+      const filtered = res.filter((t) => t.subjectId === String(id));
       setAllTests(filtered);
     }
     fetchData();
@@ -94,13 +94,13 @@ const Page = () => {
   // START PAGE
   if (!started)
     return (
-      <div className="p-5 flex flex-col items-center justify-center h-screen text-center">
+      <div className="p-5 flex flex-col items-center justify-center h-[80vh] text-center">
         <h1 className="text-3xl font-extrabold mb-4 text-purple-700 drop-shadow-md">
-          Testga tayyormisan?
+          Testga tayyormisiz ?
         </h1>
 
         <button
-          className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg shadow-md text-lg"
+          className="bg-purple-600 hover:bg-purple-700 text-white px-9 py-3 rounded-full shadow-md text-lg"
           onClick={() => setStarted(true)}
         >
           Boshlash
@@ -109,12 +109,18 @@ const Page = () => {
     );
 
   // LOADING
-  if (!currentTest) return <div>Yuklanmoqda...</div>;
-
+  if (!currentTest)
+    return (
+      <div className="flex items-center justify-center gap-2 h-[80vh]">
+        <div className="w-1 h-5 bg-purple-600/50 rounded-full animate-[scaleUp_1s_ease-in-out_infinite]"></div>
+        <div className="w-1 h-9 bg-purple-600 rounded-full animate-[scaleUp_1s_ease-in-out_infinite_0.2s]"></div>
+        <div className="w-1 h-5 bg-purple-600/50 rounded-full animate-[scaleUp_1s_ease-in-out_infinite_0.4s]"></div>
+      </div>
+    );
   // FINISHED PAGE
   if (finished)
     return (
-      <div className="p-6 flex flex-col items-center text-center mt-16">
+      <div className="p-6 flex flex-col items-center justify-center text-center mt-16 min-h-[70vh]">
         <CheckCircle className="text-green-500 w-20 h-20 mb-4" />
         <h2 className="text-3xl font-bold mb-2">Test tugadi!</h2>
         <p className="text-lg mb-6">
@@ -126,7 +132,7 @@ const Page = () => {
 
         <button
           onClick={() => router.push("/")}
-          className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 shadow-md"
+          className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-full flex items-center gap-2 shadow-md"
         >
           <Home size={20} />
           Bosh sahifaga qaytish
@@ -136,7 +142,7 @@ const Page = () => {
 
   // TEST PAGE
   return (
-    <div className="p-6 max-w-lg mx-auto">
+    <div className="p-6 mx-auto min-h-[80vh] w-full flex flex-col items-center justify-center">
       <div className="mb-5">
         <h2 className="text-xl font-semibold mb-2 text-purple-700">
           Savol {currentIndex + 1} / {allTests.length}
@@ -144,23 +150,23 @@ const Page = () => {
         <p className="text-lg font-medium">{currentTest.question}</p>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-3 w-full sm:w-1/2">
         {currentTest.Option.map((op) => {
           const isSelected = selected === op.id;
 
           const base =
-            "w-full text-left border px-4 py-3 rounded-lg transition-all duration-200 shadow-sm";
+            "w-full text-left border px-5 py-3 rounded-xl transition-all duration-300 shadow-md font-medium text-lg focus:outline-none focus:ring-2 focus:ring-purple-500";
 
           const color = isSelected
             ? op.isCorrect
-              ? "bg-green-500 text-white border-green-600 shadow-lg"
-              : "bg-red-500 text-white border-red-600 shadow-lg"
-            : "hover:bg-purple-50";
+              ? "bg-green-500 text-white border-green-600 shadow-lg scale-105"
+              : "bg-red-500 text-white border-red-600 shadow-lg scale-105"
+            : "bg-white hover:bg-purple-50 border-gray-200 hover:shadow-lg";
 
           return (
             <button
               key={op.id}
-              className={`${base} ${color}`}
+              className={`${base} ${color} transform`}
               onClick={() => !selected && handleAnswer(op)}
               disabled={!!selected}
             >

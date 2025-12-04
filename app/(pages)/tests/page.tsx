@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 interface Subjects {
   name: string;
   id: string;
+  Test: [];
 }
 
 export default function Page() {
@@ -50,17 +51,22 @@ export default function Page() {
 
             <div className="text-sm text-gray-700 mt-3">ID: {subject.id}</div>
 
-            <div className="flex items-center gap-2 text-gray-600 mt-4">
+            <div className="flex items-center gap-2 text-gray-600 mt-2">
               <Users size={18} className="text-purple-500" />
               <span>Testni bajarganlar: {subjects.length}</span>
+            </div>
+
+            <div className="flex items-center gap-2 text-gray-600">
+              <Users size={18} className="text-purple-500" />
+              <span>Umumiy Testlar Soni: {subject.Test.length}</span>
             </div>
 
             <motion.a
               href={`tests/${subject.id}`}
               whileHover={{ x: 4 }}
-              className="mt-3 text-purple-600 font-semibold flex items-center gap-1"
+              className="mt-1 text-white font-semibold flex items-center gap-1 bg-purple-600 w-10 h-10 rounded-full justify-center absolute bottom-3 right-3"
             >
-              Testlarni ko'rish <ArrowRight size={16} />
+              <ArrowRight size={20} />
             </motion.a>
           </motion.section>
         ))}

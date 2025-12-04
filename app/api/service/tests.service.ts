@@ -6,7 +6,7 @@ const tests = {
     return res.data;
   },
   filter: async (id: string) => {
-    const res = await api.get("tests/all");
+    const res = await api.get(`tests/all`);
     return res.data;
   },
 };

@@ -25,7 +25,6 @@ const Header = () => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
 
-
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (
@@ -39,24 +38,45 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  if (loading)
+  if (loading) {
     return (
       <header className="border-b border-gray-200 bg-white sticky top-0 z-50 shadow-sm">
-        <div className="container py-3 flex items-center justify-between">
+        <div className="container h-[64px] flex items-center justify-between">
           <div className="flex items-center text-2xl font-bold text-[#1c1c1c] gap-3">
             <Image src={logo} alt="Savolchi logo" className="w-7 h-7" />
             Savolchi
           </div>
-          <div className="animate-pulse text-gray-400">Yuklanmoqda...</div>
+
+          {/* Placeholder – lekin o‘lcham bir xil bo‘lsin */}
+          <div className="w-8 h-8 rounded-full bg-gray-100 animate-pulse" />
         </div>
       </header>
     );
+  }
 
-  if (!user) return null;
+  if (!user) {
+    return (
+      <header className="border-b border-gray-200 bg-white sticky top-0 z-50 shadow-sm">
+        <div className="container h-[64px] flex items-center justify-between">
+          <div className="flex items-center text-2xl font-bold text-[#1c1c1c] gap-3">
+            <Image src={logo} alt="Savolchi logo" className="w-7 h-7" />
+            Savolchi
+          </div>
+
+          <Link
+            href="/auth/login"
+            className="px-3 py-1.5 bg-purple-600 text-white rounded-lg"
+          >
+            Kirish
+          </Link>
+        </div>
+      </header>
+    );
+  }
 
   return (
-    <header className="border-b border-gray-200 bg-white sticky top-0 z-50 shadow-sm">
-      <div className="container py-3 flex items-center justify-between">
+    <header className="border-b border-gray-200 bg-white sticky top-0 z-50">
+      <div className="container h-[64px] flex items-center justify-between">
         {/* Logo */}
         <Link
           href="/"
